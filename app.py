@@ -146,6 +146,8 @@ def parse_qa(text: str) -> list[dict]:
 
         # Clean up stem: remove trailing punctuation noise, "Positive Marks" etc.
         stem = re.split(r'Positive Marks|Negative Marks', stem)[0].strip()
+        # Collapse embedded newlines/tabs into single spaces
+        stem = re.sub(r'\s+', ' ', stem).strip()
 
         parsed.append({
             "num": blk["num"],
