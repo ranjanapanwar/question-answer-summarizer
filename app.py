@@ -192,8 +192,8 @@ def generate_pdf(qa_list: list[dict], title: str) -> str:
     pdf.ln(5)
 
     for item in qa_list:
-        q_line = _safe(f"Q{item['num']}. {item['question']}")
-        a_line = _safe(format_answer_line(item))
+        q_line = _safe(re.sub(r'\s+', ' ', f"Q{item['num']}. {item['question']}").strip())
+        a_line = _safe(re.sub(r'\s+', ' ', format_answer_line(item)).strip())
 
         pdf.set_font("Helvetica", "B", 11)
         pdf.multi_cell(0, 7, q_line, new_x=XPos.LMARGIN, new_y=YPos.NEXT)
@@ -212,8 +212,8 @@ def generate_docx(qa_list: list[dict], title: str) -> str:
     heading.alignment = WD_ALIGN_PARAGRAPH.CENTER
 
     for item in qa_list:
-        q_line = f"Q{item['num']}. {item['question']}"
-        a_line = format_answer_line(item)
+        q_line = re.sub(r'\s+', ' ', f"Q{item['num']}. {item['question']}").strip()
+        a_line = re.sub(r'\s+', ' ', format_answer_line(item)).strip()
 
         p_q = doc.add_paragraph()
         run = p_q.add_run(q_line)
@@ -315,4 +315,4 @@ with gr.Blocks(title="MCQ Answer Sheet Generator") as demo:
     )
 
 if __name__ == "__main__":
-    demo.launch()
+    demo.launch(share=True)
