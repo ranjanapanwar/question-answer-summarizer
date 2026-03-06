@@ -1,8 +1,8 @@
 ---
 title: MCQ Answer Sheet Generator
 emoji: 📋
-colorFrom: orange
-colorTo: yellow
+colorFrom: yellow
+colorTo: green
 sdk: gradio
 sdk_version: "6.5.1"
 python_version: "3.10"
